@@ -35,20 +35,19 @@
   }
 </script>
 
-<style>
-    body{
-        margin:0;
-        padding:0;
-        min-width: 320px;
-    }
-    #app {
-        font-family: Avenir, Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        color: #2c3e50;
-        background: #F7F7F7;
-        display: flex;
-        justify-content: center;
-        box-sizing: border-box;
-    }
+<style lang="sass">
+    body
+        margin: 0
+        padding: 0
+        min-width: 320px
+
+    #app
+        font-family: Avenir, Helvetica, Arial, sans-serif
+        -webkit-font-smoothing: antialiased
+        -moz-osx-font-smoothing: grayscale
+        color: #2c3e50
+        background: #f7f7f7
+        display: flex
+        justify-content: center
+        box-sizing: border-box
 </style>

@@ -2,21 +2,26 @@
     <form @submit.prevent="onRegistration">
         <div class="block">
             <h2>Контактная информация</h2>
-            <label>Фамилия
+            <small>* Поле обязательное для заполнения.</small>
+            <label>Фамилия *
                 <input
                         type="text"
                         v-model.trim="userData.surname"
                         :class="{invalid: ($v.userData.surname.$dirty && !$v.userData.surname.required)}"
                 >
                 <small
-                    class="invalid"
-                    v-if="$v.userData.surname.$dirty && !$v.userData.surname.required"
+                        class="invalid"
+                        v-if="$v.userData.surname.$dirty && !$v.userData.surname.required"
                 >
                     Поле не должно быть пустым!
                 </small>
             </label>
-            <label>Имя
-                <input type="text" v-model.trim="userData.name" :class="{invalid: ($v.userData.name.$dirty && !$v.userData.name.required) }">
+            <label>Имя *
+                <input
+                        type="text"
+                        v-model.trim="userData.name"
+                        :class="{invalid: ($v.userData.name.$dirty && !$v.userData.name.required) }"
+                >
                 <small
                         class="invalid"
                         v-if="$v.userData.name.$dirty && !$v.userData.name.required"
@@ -27,9 +32,14 @@
             <label>Отчество
                 <input type="text" v-model="userData.lastname">
             </label>
-            <label>Номер телефона
-                    <input type="text" v-model="userData.phone" placeholder="7(XXX)-XXX-XX-XX" maxlength="11" :class="{invalid: ($v.userData.phone.$dirty && (!$v.userData.phone.required || !$v.userData.phone.phoneValid || !$v.userData.phone.minLength))}">
-
+            <label>Номер телефона *
+                <input
+                        type="text"
+                        v-model="userData.phone"
+                        placeholder="7(XXX)-XXX-XX-XX"
+                        maxlength="11"
+                        :class="{invalid: ($v.userData.phone.$dirty && (!$v.userData.phone.required || !$v.userData.phone.phoneValid || !$v.userData.phone.minLength))}"
+                >
                 <small
                         class="invalid"
                         v-if="$v.userData.phone.$dirty && !$v.userData.phone.required"
@@ -50,12 +60,13 @@
                 <input type="radio" id="female" value="женский" v-model="userData.sex" class="radio-control female">
                 <label for="female">женский</label>
             </div>
-            <span>Группа клиентов</span>
-            <div class="group" >
+            <span>Группа клиентов *</span>
+            <div class="group">
                 <input id="vip" type="checkbox" v-model="userData.clientGroup" class="custom-checkbox" value="VIP">
                 <label for="vip">VIP</label>
-                <input id="problem" type="checkbox" v-model="userData.clientGroup" class="custom-checkbox" value="Проблемные">
-                <label for="problem" >Проблемные</label>
+                <input id="problem" type="checkbox" v-model="userData.clientGroup" class="custom-checkbox"
+                       value="Проблемные">
+                <label for="problem">Проблемные</label>
                 <input id="oms" type="checkbox" v-model="userData.clientGroup" class="custom-checkbox" value="ОМС">
                 <label for="oms">ОМС</label>
             </div>
@@ -67,14 +78,16 @@
             </small>
             <label class="select">Лечащий врач
                 <select v-model="userData.doctor">
-                    <option v-for="option in optionsDoctor" v-bind:value="option.value" v-bind:key="option.value">
+                    <option v-for="option in optionsDoctor"
+                            v-bind:value="option.value"
+                            v-bind:key="option.value"
+                    >
                         {{ option.text }}
                     </option>
                 </select>
             </label>
             <input id="sms" type="checkbox" v-model="userData.sms" class="custom-checkbox">
             <label for="sms">Не отправлять СМС</label>
-
         </div>
         <div class="block">
             <h2>Адрес</h2>
@@ -87,8 +100,18 @@
             <label>Область
                 <input type="text" v-model="userData.region">
             </label>
-            <label>Город
-                <input type="text" v-model="userData.city" >
+            <label>Город *
+                <input
+                        type="text"
+                        v-model="userData.city"
+                        :class="{invalid:($v.userData.city.$dirty && !$v.userData.city.required)}"
+                >
+                <small
+                        class="invalid"
+                        v-if="$v.userData.city.$dirty && !$v.userData.city.required"
+                >
+                    Поле не должно быть пустым!
+                </small>
             </label>
             <label>Улица
                 <input type="text" v-model="userData.street">
@@ -99,7 +122,7 @@
         </div>
         <div class="block">
             <h2>Паспортные данные</h2>
-            <label>Тип документа
+            <label>Тип документа *
                 <select
                         v-model="userData.optionDocument"
                         :class="{invalid: ($v.userData.optionDocument.$dirty && !$v.userData.optionDocument.required)}"
@@ -124,7 +147,7 @@
             <label>Кем выдан
                 <input type="text" v-model="userData.place">
             </label>
-            <label>Дата выдачи
+            <label>Дата выдачи *
                 <input
                         type="date"
                         v-model="userData.date"
@@ -144,7 +167,7 @@
                 </small>
             </label>
         </div>
-        <button type="submit" >Зарегистрироваться</button>
+        <button type="submit">Зарегистрироваться</button>
     </form>
 
 </template>
@@ -233,152 +256,144 @@
     }
 </script>
 
-<style scoped>
-    form {
-        position: relative;
-        justify-content: center;
-        display: flex;
-        flex-direction: column;
-        padding: 5%;
-    }
-    .block{
-        width: 100%;
-    }
-    label, span, small {
-        display: block;
-        font-size: 15px;
-        margin-bottom: 8px;
-    }
-    small.invalid{
-        color:red;
-        font-size: 12px;
-    }
-    input[type="text"], input[type="date"], select {
-        width: 100%;
-        padding: 10px 15px;
-        border-width: 0;
-        background: #e6e6e6;
-        outline: none;
-        margin: 2% 0 0;
-        box-sizing: border-box;
-    }
-    input:focus, select:focus {
-        box-shadow: inset 0 0 0 2px rgba(0,0,0,.2);
-    }
-    .radio-control {
-        position: absolute;
-        z-index: -1;
-        opacity: 0;
-    }
-    .radio-control+label {
-        display: flex;
-        align-items: center;
-        user-select: none;
-    }
-    .radio-control+label::before {
-        content:'';
-        display: inline-block;
-        width: 2em;
-        height: 2em;
-        text-align: center;
-        border: 1px solid #adb5bd;
-        border-radius: 50%;
-        margin-right: 0.5em;
-        font-size: 100%;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: 70% 70%;
-    }
+<style lang="sass" scoped>
+    $active-color: #0b76ef
+    $shadow-color: rgba(0, 123, 255, 0.25)
+    %text
+        display: block
+        font-size: 100%
+        margin-bottom: 3%
 
-    .radio-control.male+label::before {
-        background-image: url("../assets/male-solid.svg");
-    }
-    .radio-control.female+label::before {
-        background-image: url("../assets/female-solid.svg");
-    }
-    .radio-control:hover+label::before,
-    .radio-control:focus+label::before {
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    }
-    .radio-control:checked+label::before {
-        border-color: #0b76ef;
-        background-color: #0b76ef;
-    }
-    select {
-        cursor: pointer;
-        outline: 0;
-        border: 0;
-    }
-    select::-ms-expand {
-        display: none;
-    }
-    .group{
-        display: flex;
-        justify-content: space-between;
-    }
+    form
+        position: relative
+        justify-content: center
+        display: flex
+        flex-direction: column
+        padding: 5%
 
-    .custom-checkbox{
-        position: absolute;
-        z-index: -1;
-        opacity: 0;
-    }
-    .custom-checkbox+label {
-        display: inline-flex;
-        align-items: center;
-        user-select: none;
-    }
-    .custom-checkbox+label::before {
-        content: '';
-        display: inline-block;
-        width: 1em;
-        height: 1em;
-        flex-shrink: 0;
-        flex-grow: 0;
-        border: 1px solid #adb5bd;
-        border-radius: 0.25em;
-        margin-right: 0.5em;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: 50% 50%;
-    }
-    .custom-checkbox:checked+label::before {
-        border-color: #0b76ef;
-        background-color: #0b76ef;
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
-    }
-    .custom-checkbox:not(:disabled):not(:checked)+label:hover::before {
-        border-color: #b3d7ff;
-    }
-    .custom-checkbox:not(:disabled):active+label::before {
-        background-color: #b3d7ff;
-        border-color: #b3d7ff;
-    }
-    .custom-checkbox:focus+label::before {
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    }
-    .custom-checkbox:focus:not(:checked)+label::before {
-        border-color: #80bdff;
-    }
-    .custom-checkbox:disabled+label::before {
-        background-color: #e9ecef;
-    }
-    button{
-        margin-top: 10%;
-        border-radius: 5em;
-        border: 1px solid #adb5bd;
-        padding: 1em;
-        cursor:pointer;
-        outline: none;
-    }
-    button:hover,
-    button:focus{
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    }
-    button:active{
-        background-color: #0b76ef;
-    }
-    input[class="invalid"], input[class="invalid"]:active, select.invalid{
-        box-shadow: inset 0 0 0 2px rgba(242, 99, 99, 0.24);
-    }
+    label,
+    span
+        @extend %text
+
+    small
+        @extend %text
+        font-size: 80%
+        opacity: 0.9
+        &.invalid
+            color: red
+            margin-top: 1%
+
+    input[type="text"], input[type="date"], select
+        width: 100%
+        padding: 10px 15px
+        border-width: 0
+        background: #e6e6e6
+        outline: none
+        margin: 2% 0 0
+        box-sizing: border-box
+        &:focus
+            box-shadow: inset 0 0 0 2px rgba(0,0,0,.2)
+    input[class="invalid"],
+    input[class="invalid"]:active
+        box-shadow: inset 0 0 0 2px rgba(242, 99, 99, 0.24)
+
+    .radio-control
+        position: absolute
+        z-index: -1
+        opacity: 0
+        &+label
+            display: flex
+            align-items: center
+            user-select: none
+            &::before
+                content: ''
+                display: inline-block
+                width: 2em
+                height: 2em
+                text-align: center
+                border: 1px solid #adb5bd
+                border-radius: 50%
+                margin-right: 0.5em
+                font-size: 100%
+                background-repeat: no-repeat
+                background-position: center center
+                background-size: 70% 70%
+        &.male+label::before
+            background-image: url("../assets/male-solid.svg")
+        &.female+label::before
+            background-image: url("../assets/female-solid.svg")
+        &:hover+label::before,
+        &:focus+label::before
+            box-shadow: 0 0 0 0.2rem $shadow-color
+        &:checked+label::before
+            border-color: $active-color
+            background-color: $active-color
+
+    select
+        cursor: pointer
+        outline: 0
+        border: 0
+        &:focus
+            box-shadow: inset 0 0 0 2px rgba(0,0,0,.2)
+        &::-ms-expand
+            display: none
+        &.invalid
+            box-shadow: inset 0 0 0 2px rgba(242, 99, 99, 0.24)
+
+    .group
+        display: flex
+        justify-content: space-between
+
+    .custom-checkbox
+        position: absolute
+        z-index: -1
+        opacity: 0
+        &+label
+            display: inline-flex
+            align-items: center
+            user-select: none
+            &::before
+                content: ''
+                display: inline-block
+                width: 1em
+                height: 1em
+                flex-shrink: 0
+                flex-grow: 0
+                border: 1px solid #adb5bd
+                border-radius: 0.25em
+                margin-right: 0.5em
+                background-repeat: no-repeat
+                background-position: center center
+                background-size: 50% 50%
+        &:checked+label::before
+            border-color: $active-color
+            background-color: $active-color
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e")
+        &:not(:disabled)
+            &:not(:checked)+label:hover::before
+                border-color: $shadow-color
+            &:active+label::before
+                background-color: $shadow-color
+                border-color: $shadow-color
+        &:focus
+            &+label::before
+                box-shadow: 0 0 0 0.2rem $shadow-color
+            &:not(:checked)+label::before
+                border-color: #80bdff
+        &:disabled+label::before
+            background-color: #e9ecef
+
+    button
+        margin-top: 10%
+        border-radius: 5em
+        border: 1px solid #adb5bd
+        padding: 1em
+        cursor: pointer
+        outline: none
+        &:hover,
+        &:focus
+            box-shadow: 0 0 0 0.2rem $shadow-color
+        &:active
+            background-color: $active-color
 
 </style>
