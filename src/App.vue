@@ -1,28 +1,54 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <RegistrationForm :onSubmit="onSubmit"/>
+      <SuccessRegistration v-show="view" :name="name" :onClose="onClose"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  import RegistrationForm from "@/components/RegistrationForm";
+  import SuccessRegistration from "@/components/SuccessRegistration";
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+
+  export default {
+      name: 'App',
+      components: {
+          SuccessRegistration,
+          RegistrationForm,
+
+      },
+      data() {
+          return {
+              name:'',
+              view:false
+          }
+      },
+      methods: {
+          onSubmit(data) {
+              this.name=data.name
+              this.view=true
+          },
+          onClose(){
+              this.view=false
+          }
+      }
   }
-}
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    body{
+        margin:0;
+        padding:0;
+        min-width: 320px;
+    }
+    #app {
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #2c3e50;
+        background: #F7F7F7;
+        display: flex;
+        justify-content: center;
+        box-sizing: border-box;
+    }
 </style>
