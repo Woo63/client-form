@@ -38,6 +38,7 @@
                         v-model="userData.phone"
                         placeholder="7(XXX)-XXX-XX-XX"
                         maxlength="11"
+                        onkeyup="this.value = this.value.replace(/[^\d]/g,'')"
                         :class="{invalid: ($v.userData.phone.$dirty && (!$v.userData.phone.required || !$v.userData.phone.phoneValid || !$v.userData.phone.minLength))}"
                 >
                 <small
@@ -92,7 +93,11 @@
         <div class="block">
             <h2>Адрес</h2>
             <label>Индекс
-                <input type="text" v-model="userData.index">
+                <input
+                        type="text"
+                        v-model="userData.index"
+                        onkeyup="this.value = this.value.replace(/[^\d]/g,'')"
+                >
             </label>
             <label>Страна
                 <input type="text" v-model="userData.country">
@@ -139,10 +144,19 @@
                 </small>
             </label>
             <label>Серия
-                <input type="text" v-model="userData.seria">
+                <input
+                        type="text"
+                        v-model="userData.seria"
+                        maxlength="4"
+                >
             </label>
             <label>Номер
-                <input type="text" v-model="userData.number">
+                <input
+                        type="text"
+                        v-model="userData.number"
+                        maxlength="6"
+                        onkeyup="this.value = this.value.replace(/[^\d]/g,'')"
+                >
             </label>
             <label>Кем выдан
                 <input type="text" v-model="userData.place">
